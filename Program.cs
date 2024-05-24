@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Net.Mail;
+using System.Reflection.Metadata;
 
 Console.WriteLine("Hello, World!");
 
@@ -84,6 +85,10 @@ do
                 Console.WriteLine("Ingrese num2: ");
                 int.TryParse(Console.ReadLine(), out num2);
                 Console.WriteLine("La suma resultante es: "+(num1+num2));
+                //muestro en texto el resultado
+                int res=num1 +num2;
+                Console.WriteLine($"La suma de {num1} y de {num2} es igual a: "+res.ToString());
+
             break;
             case 2:
                 Console.WriteLine("Ingrese num1: ");
@@ -193,6 +198,129 @@ do
 } while (seguir!=0);
     
 
-    
-       
-      
+//------EJERCICIO 4----------------
+string cadena1,cadena2;
+
+// longitud de una cadena
+Console.WriteLine("Ingrese una cadena de texto: ");
+cadena1 = Console.ReadLine();
+Console.WriteLine(cadena1 + " | Longitud : "+cadena1.Length);
+
+// a partir de una segunda cadena concatenar las dos cadenas
+Console.WriteLine("Ingrese otra cadena de texto: ");
+cadena2 = Console.ReadLine();
+Console.WriteLine(cadena1+cadena2);
+//Console.WriteLine(string.Concat(cadena1,cadena2)); otra forma de concatenar
+
+// obtener subcadena de cadena ingresada
+int indiceInicial1 = 2; // Índice donde comienza la subcadena
+int longitud1 = 4; // Longitud de la subcadena a extraer
+Console.WriteLine("Subcadena de cadena1: "+cadena1.Substring(indiceInicial1, longitud1));
+// recorrer la cadena de texto con foreach y mostrar elemento por elemento en pantalla
+Console.WriteLine("Recorriendo cadena1: ");
+foreach (char caracter in cadena1)
+{
+    Console.WriteLine(caracter);
+}
+
+//buscar una ocurrencia de una palabra determinada en la cadena ingresada
+Console.WriteLine("Ingrese una palabra a buscar en la primera cadena ingresada: ");
+string palabraBuscada = Console.ReadLine();
+//int indice = frase.IndexOf(palabraBuscada, StringComparison.OrdinalIgnoreCase);
+//StringComparison.OrdinalIgnoreCase se utiliza para realizar la búsqueda de manera insensible a mayúsculas y minúsculas.
+int indice = cadena1.IndexOf(palabraBuscada);
+if (indice != -1)
+{
+    Console.WriteLine($"La palabra {palabraBuscada} empieza en la posicion: "+indice);
+}else{
+    Console.WriteLine($"La palabra {palabraBuscada} No se encuentra");
+}
+
+// Convierta la cadena a mayusculas y luego a minusculas
+Console.WriteLine($"La cadena1 en mayusculas: "+cadena1.ToUpper());
+Console.WriteLine($"La cadena1 en minusculas: "+cadena1.ToLower());
+
+//Ingrese una cadena separada por caracteres que usted determine y muestre por pantalla los resultados
+Console.WriteLine("Ingrese un cadena separada por \";\" :");
+string frase = Console.ReadLine();
+string[] palabras = frase.Split(';');
+foreach (string palabra in palabras)
+{
+    Console.WriteLine(palabra);
+}
+
+//Ingrese un ecuacin simple como cadena de caracteres y que el sistema lo resuelva
+Console.WriteLine("Ingrese una ecucacion simple (de sumas y restas): ");
+string ecuacion = Console.ReadLine();
+int longitudEcuacion = ecuacion.Length;
+int n2;
+int n3=0;
+int indiceInicial = 0; 
+int longitud = 0;
+char signo='+';
+for (int i = 0; i < longitudEcuacion; i++)
+{
+
+    if (ecuacion[i] == '+')
+    {
+        int.TryParse(ecuacion.Substring(indiceInicial, longitud),out n2);
+        if (signo=='+')
+        {
+             n3+=n2;
+        }else{
+             n3-=n2;
+        }
+        signo = ecuacion[i];
+        indiceInicial = i+1; 
+        longitud= 0;
+        i++;
+    }
+    if (ecuacion[i] == '-')
+    {
+        int.TryParse(ecuacion.Substring(indiceInicial, longitud),out n2);
+        if (signo=='+')
+        {
+             n3+=n2;
+        }else{
+             n3-=n2;
+        }
+        signo = ecuacion[i];
+        indiceInicial = i+1; 
+        longitud= 0;
+        i++;
+    }
+    if (i==longitudEcuacion-1)
+    {
+        longitud = longitudEcuacion-indiceInicial;
+        int.TryParse(ecuacion.Substring(indiceInicial, longitud),out n2);
+        switch (signo)
+        {
+            case '+':
+                n3 += n2;
+            break;
+            case '-':
+                n3 -= n2;
+            break;
+
+            default:
+                n3 += n2;
+            break;
+           
+        }
+        
+    }
+    longitud++;
+}
+Console.WriteLine($"La ecuacion: {ecuacion} = "+n3);
+
+/*
+string[] operar = ecuacion.Split('+');
+int suma = 0;
+int n;
+foreach (string operando in operar)
+{
+    int.TryParse(operando, out n);
+    suma = suma + n;
+};
+Console.WriteLine($"La ecuacion: {ecuacion} = "+suma);
+*/
